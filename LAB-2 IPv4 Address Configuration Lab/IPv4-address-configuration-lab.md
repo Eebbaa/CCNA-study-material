@@ -1,12 +1,11 @@
 
 ## Lab Topology
-![IPv4 addressing Lab Topology](images-lab-2/lab-2-packet-tracer-topology-1.png)
+![IPv4 addressing Lab Topology](images-lab-2/lab-2-network-topology.png)
 
-The lab consists of a Cisco router with two interfaces for simplicty(LAN-1 and LAN-2):
-(The actual Lab has 3 interfaces with LAN-1, LAN-2, LAN-3)
+The lab consists of a Cisco router with hree interfaces for simplicty(LAN-1, LAN-2 and LAN-3):
 - **GigabitEthernet0/0:** Connected to LAN 1 (15.0.0.0/8)
 - **GigabitEthernet0/1:** Connected to LAN 2 (182.98.0.0/16)
-- 
+- **GigabitEthernet0/2:** Connected to LAN 3 (201.191.0.0/24)
 
 ---
 
@@ -41,14 +40,14 @@ Router(config)#
 
 ```
 Router(config)# interface gigabitethernet0/0
-Router(config-if)# ip address 192.168.1.1 255.255.255.0
+Router(config-if)# ip address 15.255.255.254 255.0.0.0
 Router(config-if)# no shutdown
 Router(config-if)# description ## Connection to LAN 1 ##
 Router(config-if)# exit
 ```
 
 - [ ]  Enter interface configuration mode
-- [ ]  Assign IP address 192.168.1.1 with subnet mask 255.255.255.0
+- [ ]  Assign IP address 15.255.255.254 with subnet mask 255.0.0.0
 - [ ]  Enable the interface
 - [ ]  Add meaningful description
 - [ ]  Return to global configuration mode
@@ -57,33 +56,33 @@ Router(config-if)# exit
 
 ```
 Router(config)# interface gigabitethernet0/1
-Router(config-if)# ip address 192.168.2.1 255.255.255.0
+Router(config-if)# ip address 182.98.255.254 255.255.0.0
 Router(config-if)# no shutdown
 Router(config-if)# description ## Connection to LAN 2 ##
 Router(config-if)# exit
 ```
-
-- [ ]  Enter interface configuration mode
-- [ ]  Assign IP address 192.168.2.1 with subnet mask 255.255.255.0
-- [ ]  Enable the interface
-- [ ]  Add meaningful description
-- [ ]  Return to global configuration mode
+### Description of above commands
+- Enter interface configuration mode
+- Assign IP address 182.98.255.254 with subnet mask 255.255.0.0 (/16)
+- Enable the interface
+- Add meaningful description
+- Return to global configuration mode
 
 ### Task 6: Configure GigabitEthernet0/2
 
 ```
 Router(config)# interface gigabitethernet0/2
-Router(config-if)# ip address 10.0.0.1 255.255.255.252
+Router(config-if)# ip address 201.191.20.254 255.255.255.0
 Router(config-if)# no shutdown
 Router(config-if)# description ## Point-to-Point Link ##
 Router(config-if)# exit
 ```
-
-- [ ]  Enter interface configuration mode
-- [ ]  Assign IP address 10.0.0.1 with subnet mask 255.255.255.252 (/30)
-- [ ]  Enable the interface
-- [ ]  Add meaningful description
-- [ ]  Return to global configuration mode
+### Description of above commands
+- Enter interface configuration mode
+- Assign IP address 201.191.20.254 with subnet mask 255.255.255.0 (/24)
+- Enable the interface
+- Add meaningful description
+- Return to global configuration mode
 
 ### Task 7: Verify Configuration
 
@@ -91,10 +90,10 @@ Router(config-if)# exit
 Router(config)# exit
 Router# show ip interface brief
 ```
-
-- [ ]  Exit to privileged EXEC mode
-- [ ]  Verify all interfaces show assigned IP addresses
-- [ ]  Confirm all interfaces are in **up/up** state
+### Description of above commands
+- Exit to privileged EXEC mode
+- Verify all interfaces show assigned IP addresses
+- Confirm all interfaces are in **up/up** state
 
 **Additional verification commands:**
 
@@ -118,16 +117,20 @@ or
 Router# copy running-config startup-config
 ```
 
-- [ ]  Save configuration to NVRAM
-- [ ]  Confirm successful save message
+- Save configuration
+- Confirm successful save message
 
+### Task 9: Assign Ip address to PC1, PC2, and PC3
+- On Packet tracer Click PC1--->Go to Config--> Interface--> FastEthernet
+  on the Ipv4 address give PC1 address 15.0.0.1 and automatically subnet mask will be filled. 
+- Do the same for PC2, PC3 to assign IPv4 address.
 ---
 
 ## Lab Questions
 
 ### Question 1: IPv4 Address Classes
 
-What class is the network 192.168.1.0/24?
+What class is the network 201.191.20.0/24?
 
 **Answer:** Class C. The first octet is 192, which falls in the range 192-223 for Class C networks.
 
@@ -149,28 +152,28 @@ How many usable host addresses are available in a /24 network?
 
 ### Question 3: Usable Hosts in /30 Network
 
-How many usable host addresses are in the 10.0.0.0/30 network configured on Gi0/2?
+How many usable host addresses are in the 15.0.0.0/8 network configured on Gi0/2?
 
-**Answer:** 2 usable hosts
+**Answer:** 16 777 214 usable hosts
 
 **Calculation:**
 
-- Host bits: 32 - 30 = 2 bits
-- Formula: 2^2 - 2 = 4 - 2 = 2
+- Host bits: 32 - 8 = 24 bits
+- Formula: 2^24 - 2 = 16777214
 - /30 networks are commonly used for point-to-point links between routers
 
 ---
 
 ### Question 4: First and Last Usable Addresses
 
-For the network 192.168.1.0/24, what are the first usable address, last usable address, and broadcast address?
+For the network 182.98.0.0/16, what are the first usable address, last usable address, and broadcast address?
 
-**Answer:**
+**Answer:** 
 
-- **Network address:** 192.168.1.0
-- **First usable address:** 192.168.1.1
-- **Last usable address:** 192.168.1.254
-- **Broadcast address:** 192.168.1.255
+- **Network address:** 182.98.255.254
+- **First usable address:** 182.98.0.1
+- **Last usable address:** 182.98.255.254
+- **Broadcast address:** 192.168.255.255
 
 ---
 
